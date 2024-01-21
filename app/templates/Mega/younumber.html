@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <header
+                class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+                <div class="col-md-3 mb-2 mb-md-0">
+                    <a href="index.html" class="d-inline-flex link-body-emphasis text-decoration-none">
+                        <img class="bi" width="auto" height="32"
+                            src="https://www.megacom.kg/uploads/ckeditor/pictures/3647/content_ru_MEGA-logo-horizontal_.png"></img>
+                    </a>
+                </div>
+
+
+
+                <div class="col-md-3 text-end">
+                    <button type="button" class="btn btn-outline-primary me-2">RU</button>
+                    <button type="button" class="btn btn-outline-primary me-2">KG</button>
+                    <button type="button" class="btn btn-primary">Войти</button>
+                </div>
+            </header>
+        </div>
+
+        <main class="row">
+            <div class="col-3 ">
+                <center>
+                    <h4 class="">Menu</h4>
+                </center>
+                <hr>
+                <a href="{% url 'base' %}"><h4>Жаңылыктар</h4></a><hr>
+                <a href="{% url 'number' %}"><h4>Сиздин номер</h4></a>  <hr>
+                <a href="{% url 'tarif' %}"><h4>Тарифтер</h4></a>  <hr>
+                <a href="{% url 'kyzmat' %}"><h4>Кызматтар</h4></a>  <hr>
+                <a href="{% url 'about'%}"><h4>Биздин офис</h4></a>
+            </div>
+            <div class="col-9 ">
+                <div class="col-md-12">
+                    <br>
+                    <br>
+                    <br>
+                    <center>
+                        <div class="col-6">
+                            <div class="input-group">
+                                <form method='post' class="form-control">
+                                    {% csrf_token %}
+                                    <div class="search md-12">
+                                        <input type="search" class="form-control" placeholder="Номерди кийириңиз!"
+                                            aria-label="Номерди кийириңиз! " name='search'><br>
+                                        <button style="background: rgb(11, 233, 122);" class="btn btn-outline-secondary"
+                                            type="submit" name='search_button'>Пиоск</button>
+                                        <button style="background: rgb(11, 233, 122);" class="btn btn-outline-secondary"
+                                            type="submit" name='delete_button'>Удалить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </center>
+                    <br>
+                    <br><br>
+
+                    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+                        <div class="container-fluid py-5">
+                            <div class="row">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Ф.И.О:</th>
+                                            <th scope="col">{{ abonent.name_abonent }}</th>
+                                            <th scope="col">Тарифнтик план:</th>
+                                            <th scope="col">{{ abonent.tarif }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <th scope="row">Жалпы баланс</th>
+                                            <td>{{abonent.balance}}сом</td>
+                                            <th scope="row">Азыркы тарифи: </th>
+                                            <td>{{abonent.tarif}}</td>
+
+
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">Жалпы мүнөттөрдүн көлөмү</th>
+                                            <td>{{abonent.balance}}мин</td>
+                                            <th scope="row">Жалпы интернеттин көлөмү</th>
+                                            <td>{{abonent.internet}}ГБ</td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">Жалпы смстер</th>
+                                            <td>{{abonent.sms}}</td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="col-md-8 fs-4">Колдонулган трафиктин көлөмү.</p>
+                            <table class="table">
+
+                                <tbody>
+
+                                    <tr>
+                                        <th scope="row">Тармак ичинде мүнөттөр</th>
+                                        <td>{{abonent.in_min}}мин</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Тармактан сырткары мүнөттөр</th>
+                                        <td>{{abonent.vne_min}}мин</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Смс</th>
+                                        <td>{{abonent.in_sms}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Интернет</th>
+                                        <td>{{abonent.internet}}мб</td>
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Пакеттин аты</th>
+                                        <th scope="col">Башталыш күнү</th>
+                                        <th scope="col">Аяктоо күнү</th>
+                                        <th scope="col">Статус</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <th scope="row">Элдики 490+MegaTV</th>
+                                        <td>2023-01-01 10:04:45</td>
+                                        <td>2023-01-29 10:04:45</td>
+                                        <td>Активдүү</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Элдики 490+MegaTV</th>
+                                        <td>2023-01-01 10:04:45</td>
+                                        <td>2023-01-29 10:04:45</td>
+                                        <td>Активдүү эмес</td>
+                                    </tr>
+
+
+
+
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                crossorigin="anonymous"></script>
+
+</body>
+
+</html>
